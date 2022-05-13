@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DestinoViaje } from '../../models/destino-viaje.model';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { DestinoViaje } from 'src/app/models/destino-viaje.model';
 
 @Component({
   selector: 'app-form-destino-viaje',
@@ -7,18 +8,27 @@ import { DestinoViaje } from '../../models/destino-viaje.model';
   styleUrls: ['./form-destino-viaje.component.css']
 })
 export class FormDestinoViajeComponent implements OnInit {
+  @Output() onItemAdded: EventEmitter<DestinoViaje>;
+  fg:FormGroup;
+  constructor(fb:FormBuilder) {
+    this.onItemAdded=new EventEmitter();
+    this.fg = fb.group({
+      titulo:[''],
+      subtitulo:[''],
+      urlImg:['']
+    });
 
-  destinos: DestinoViaje[];
-  constructor() {
-    this.destinos = []
+    this.fg.valueChanges.subscribe((form:any)=> {
+      console.log("Cambio Form -->",form)
+    })
   }
 
   ngOnInit(): void {
   }
 
   guardar(titulo:string, subtitulo:string, urlImg:string):boolean{
-    this.destinos.push(new DestinoViaje(titulo,subtitulo,urlImg));
-    console.log(this.destinos);
+    const destino = new DestinoViaje(titulo,subtitulo,urlImg)
+    this.onItemAdded.emit(destino);
     return false
   }
 

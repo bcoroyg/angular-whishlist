@@ -5,8 +5,8 @@ export class DestinosApiClient {
   constructor() {
     this.destinos = [];
   }
-  add(d: DestinoViaje) {
-    this.destinos.push(d);
+  add(destino:DestinoViaje):void {
+    this.destinos.push(destino);
   }
   getAll(): DestinoViaje[] {
     return this.destinos;
