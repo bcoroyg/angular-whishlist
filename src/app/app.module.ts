@@ -6,17 +6,22 @@ import { AppComponent } from './app.component';
 import { DestinoViajeComponent } from './components/destino-viaje/destino-viaje.component';
 import { ListaDestinosComponent } from './components/lista-destinos/lista-destinos.component';
 import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DestinoViajeComponent,
     ListaDestinosComponent,
-    DestinoDetalleComponent
+    DestinoDetalleComponent,
+    FormDestinoViajeComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
