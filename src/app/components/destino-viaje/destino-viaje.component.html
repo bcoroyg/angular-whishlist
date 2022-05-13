@@ -16,7 +16,8 @@
         </span>
       </li>
     </ul>
-    <a href="#" class="btn-card" (click)="ir()">¡Ir!</a>
+    <a class="lead text-center d-block" [routerLink]="['/destino']">Ver Detalles</a>
+    <a href="#" class="mx-auto d-block text-center btn-card" (click)="ir()">¡Ir!</a>
     <!-- <span [style.display]="destino.isSelected()?'':'none'">--PREFERIDO--</span> -->
     <span *ngIf="destino.isSelected()">
       <span ngNonBindable>{{PREFERIDO}}</span>
