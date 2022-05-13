@@ -9,9 +9,17 @@
     <h3>{{destino.subtitulo}}</h3>
     <p class="mb-0">Servicios</p>
     <ul>
-      <li *ngFor="let servicio of destino.servicios">{{servicio}}</li>
+      <li *ngFor="let servicio of destino.servicios">
+        <span [ngSwitch]="servicio">
+          <i class="text-danger" *ngSwitchCase="'desayuno'">{{servicio}}</i>
+          <i *ngSwitchDefault>{{servicio}}</i>
+        </span>
+      </li>
     </ul>
     <a href="#" class="btn-card" (click)="ir()">¡Ir!</a>
-    <span [style.display]="destino.isSelected()?'':'none'">--PREFERIDO--</span>
+    <!-- <span [style.display]="destino.isSelected()?'':'none'">--PREFERIDO--</span> -->
+    <span *ngIf="destino.isSelected()">
+      <span ngNonBindable>{{PREFERIDO}}</span>
+    </span>
   </div>
 </div>
