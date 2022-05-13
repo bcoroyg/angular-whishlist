@@ -7,9 +7,10 @@
   </div>
   <div class="card-desc">
     <h3>{{destino.subtitulo}}</h3>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Debitis, iure?
-    </p>
+    <p class="mb-0">Servicios</p>
+    <ul>
+      <li *ngFor="let servicio of destino.servicios">{{servicio}}</li>
+    </ul>
     <a href="#" class="btn-card" (click)="ir()">¡Ir!</a>
     <span [style.display]="destino.isSelected()?'':'none'">--PREFERIDO--</span>
   </div>
