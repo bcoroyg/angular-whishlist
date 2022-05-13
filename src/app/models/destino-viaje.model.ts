@@ -1,7 +1,9 @@
+import {v4 as uuid} from 'uuid';
 export class DestinoViaje{
 
   private selected: boolean = false;
   public servicios:string[];
+  public id = uuid();
 
   constructor(
     public titulo:string,

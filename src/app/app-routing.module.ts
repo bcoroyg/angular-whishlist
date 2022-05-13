@@ -6,7 +6,7 @@ import { ListaDestinosComponent } from './components/lista-destinos/lista-destin
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: ListaDestinosComponent },
-  { path: 'destino', component: DestinoDetalleComponent },
+  { path: 'destino/:id', component: DestinoDetalleComponent },
 ];
 
 @NgModule({
