@@ -21,4 +21,9 @@ export class ListaDestinosComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  guardar(titulo:string, subtitulo:string, urlImg:string):boolean{
+    console.log(titulo, subtitulo, urlImg)
+    return false
+  }
+
 }
