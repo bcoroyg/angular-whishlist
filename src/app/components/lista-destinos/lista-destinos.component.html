@@ -57,6 +57,7 @@
     <app-destino-viaje
       *ngFor="let destino of destinos"
       [destino]="destino"
+      (clicked)="elegido($event)"
     >
   </app-destino-viaje>
   </div>
