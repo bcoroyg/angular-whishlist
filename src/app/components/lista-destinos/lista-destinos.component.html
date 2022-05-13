@@ -55,8 +55,9 @@
   <hr class="mb-5" />
   <div class="row">
     <app-destino-viaje
-      *ngFor="let destino of destinos"
+      *ngFor="let destino of destinos; let i = index"
       [destino]="destino"
+      [position]="i"
       (clicked)="elegido($event)"
     >
   </app-destino-viaje>
