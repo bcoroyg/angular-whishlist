@@ -1,13 +1,13 @@
 <!--
   [formControl]="fg.controls['titulo']" -> formControlName="titulo"
-  "guardar(fg.controls['titulo'].value) -> this.fg.value.titulo
+  "guardar(fg.controls['titulo'].value) -> fg.value.titulo
  -->
 <form
   [formGroup]="fg"
   (ngSubmit)="guardar(
-                      fg.value.titulo,
-                      fg.value.subtitulo,
-                      fg.value.imgUrl
+                      fg.controls['titulo'].value,
+                      fg.controls['subtitulo'].value,
+                      fg.controls['imagen'].value
               )"
 >
   <div class="form-group">
@@ -18,8 +18,13 @@
       id="titulo"
       placeholder="Ingresar titulo."
       formControlName="titulo"
-
-    />
+      />
+      <div
+        *ngIf="!fg.controls['titulo'].valid"
+        class="alert alert-danger"
+      >
+        Titulo es requerido.
+      </div>
   </div>
   <div class="form-group">
     <label for="subtitulo">Subtitulo:</label>
@@ -30,6 +35,12 @@
       placeholder="Ingresar subtitulo."
       formControlName="subtitulo"
     />
+    <div
+      *ngIf="fg.controls['subtitulo'].hasError('required')"
+      class="alert alert-danger"
+    >
+      Subtitulo es requerido.
+    </div>
   </div>
   <div class="form-group">
     <label for="imagen">Imagen:</label>
@@ -38,13 +49,20 @@
       class="form-control"
       id="imagen"
       placeholder="Ingresar url imagen."
-      formControlName="urlImg"
+      formControlName="imagen"
     />
+    <div
+      *ngIf="!fg.controls['titulo'].valid"
+      class="alert alert-danger"
+    >
+      Imagen es requerido.
+    </div>
   </div>
 
   <button
     type="submit"
     class="btn btn-success btn-block"
+    *ngIf="fg.valid"
   >
     ¡Guardar!
   </button>
