@@ -10,6 +10,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
 import { DestinosApiClient } from './models/destinos-api-client.model';
 
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule as NgRxStoreModule } from '@ngrx/store';
+import { reducers, reducersInitialState } from './store';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +27,7 @@ import { DestinosApiClient } from './models/destinos-api-client.model';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
   ],
   providers: [
     DestinosApiClient
