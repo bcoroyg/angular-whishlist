@@ -20,10 +20,16 @@
       formControlName="titulo"
       />
       <div
-        *ngIf="!fg.controls['titulo'].valid"
+        *ngIf="fg.controls['titulo'].hasError('required')"
         class="alert alert-danger"
       >
         Titulo es requerido.
+      </div>
+      <div
+        *ngIf="fg.controls['titulo'].hasError('invalidTitulo')"
+        class="alert alert-danger"
+        >
+        Titulo es invalido.
       </div>
   </div>
   <div class="form-group">
@@ -41,6 +47,12 @@
     >
       Subtitulo es requerido.
     </div>
+    <div
+      *ngIf="fg.controls['subtitulo'].hasError('minLongSubtitulo')"
+      class="alert alert-danger"
+      >
+        Debe tener al menos {{minLongSub}} caracteres.
+    </div>
   </div>
   <div class="form-group">
     <label for="imagen">Imagen:</label>
@@ -52,7 +64,7 @@
       formControlName="imagen"
     />
     <div
-      *ngIf="!fg.controls['titulo'].valid"
+      *ngIf="!fg.controls['imagen'].valid"
       class="alert alert-danger"
     >
       Imagen es requerido.
