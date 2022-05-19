@@ -19,6 +19,11 @@
       placeholder="Ingresar titulo."
       formControlName="titulo"
       />
+      <ul>
+        <li *ngFor="let result of searchResults">
+          {{result}}
+        </li>
+      </ul>
       <div
         *ngIf="fg.controls['titulo'].hasError('required')"
         class="alert alert-danger"

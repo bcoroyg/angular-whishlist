@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
+import { debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap } from 'rxjs';
 import { DestinoViaje } from 'src/app/models/destino-viaje.model';
+import { ajax } from 'rxjs/ajax';
 
 @Component({
   selector: 'app-form-destino-viaje',
@@ -10,6 +12,7 @@ import { DestinoViaje } from 'src/app/models/destino-viaje.model';
 export class FormDestinoViajeComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   fg:FormGroup;
+  searchResults:string[]=[];
 
   minLongSub:number=3;
 
@@ -31,6 +34,20 @@ export class FormDestinoViajeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+        // const elemTitulo = <HTMLInputElement>document.getElementById('titulo');
+        const elemTitulo = document.getElementById('titulo') as HTMLInputElement;
+        fromEvent<KeyboardEvent>(elemTitulo, 'input')
+          .pipe(
+            map((e: KeyboardEvent) => (e.target as HTMLInputElement).value),
+            filter(text => text.length > 2),
+            debounceTime(200),
+            distinctUntilChanged(),
+            switchMap(() => ajax('/assets/date.json'))
+          )
+          .subscribe(ajaxResponse => {
+            console.log(ajaxResponse.response);
+            this.searchResults = ajaxResponse.response as any
+          });
   }
 
   guardar(titulo:string, subtitulo:string, urlImg:string):boolean{
