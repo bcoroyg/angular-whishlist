@@ -1,7 +1,9 @@
+import { BehaviorSubject, Subject } from 'rxjs';
 import { DestinoViaje } from './destino-viaje.model';
 
 export class DestinosApiClient {
   destinos: DestinoViaje[];
+  current: Subject<DestinoViaje> = new BehaviorSubject<DestinoViaje>(null as any)
   constructor() {
     this.destinos = [];
   }
@@ -15,5 +17,18 @@ export class DestinosApiClient {
     return this.destinos.filter((destino) => {
       return destino.id.toString() == id;
     })[0];
+  };
+
+  elegir(destino: DestinoViaje):void {
+    this.destinos.forEach(destino => {
+      return destino.setSelected(false);
+    });
+    destino.setSelected(true);
+    this.current.next(destino);
+  };
+
+  subscribeOnChange(fn: any){
+    this.current.subscribe(fn)
   }
+
 }
