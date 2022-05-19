@@ -4,6 +4,7 @@ export class DestinoViaje{
   private selected: boolean = false;
   public servicios:string[];
   public id = uuid();
+  public votes = 0;
 
   constructor(
     public titulo:string,
@@ -15,9 +16,16 @@ export class DestinoViaje{
 
   isSelected(): boolean {
     return this.selected;
-  }
+  };
 
   setSelected(value:boolean){
     this.selected = value;
+  };
+
+  voteUp() {
+    this.votes++;
+  }
+  voteDown() {
+      this.votes--;
   }
 }
