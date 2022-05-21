@@ -24,7 +24,6 @@ const reducer = createReducer(
     };
   }),
   on(destinosViajesActions.ElegidoFavoritoAction, (state, {destino})=> {
-    console.log(state)
     let items= [...state.items.map(item => {
       if(item.id === destino.id){
         item = {...item,selected:true}
@@ -42,6 +41,42 @@ const reducer = createReducer(
         selected:true
       }
      };
+  }),
+    on(destinosViajesActions.VoteUpAction, (state, {destino})=> {
+    let items= [...state.items.map(item => {
+      let itemCopy = {...item}
+      if(itemCopy.votes===undefined){
+        itemCopy.votes=0
+      }
+      if(itemCopy.id === destino.id){
+        itemCopy.votes+=1;
+      };
+      return itemCopy
+    })]
+    return {
+        ...state,
+        items
+    };
+  }),
+  on(destinosViajesActions.VoteDownAction, (state, {destino})=> {
+    let items= [...state.items.map(item => {
+      let itemCopy = {...item}
+      if(itemCopy.votes===undefined){
+        itemCopy.votes=0
+      }
+      if(itemCopy.id === destino.id){
+        if(item.votes===0){
+          itemCopy.votes=0
+        }else{
+          itemCopy.votes-=1;
+        }
+      };
+      return itemCopy
+    })]
+    return {
+        ...state,
+        items,
+    };
   }),
 );
 
