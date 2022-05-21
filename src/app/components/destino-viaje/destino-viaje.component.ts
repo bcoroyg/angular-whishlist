@@ -8,7 +8,7 @@ import { DestinoViaje } from 'src/app/models/destino-viaje.model';
 })
 export class DestinoViajeComponent implements OnInit {
 
-  @Input() destino: DestinoViaje = new DestinoViaje('','','');
+  @Input() destino: DestinoViaje = {};
   @Input() position: number = 0;
 
   @HostBinding('attr.class') cssClass = 'col-md-4';

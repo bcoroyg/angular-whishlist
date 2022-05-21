@@ -1,7 +1,18 @@
 import {v4 as uuid} from 'uuid';
-export class DestinoViaje{
 
-  private selected: boolean = false;
+export interface DestinoViaje{
+  id?:string,
+  titulo?:string,
+  subtitulo?:string,
+  imgUrl?:string
+  servicios?:string[];
+  selected?: boolean;
+  votes?:number;
+}
+
+/* export class DestinoViaje{
+
+  public selected: boolean = false;
   public servicios:string[];
   public id = uuid();
   public votes = 0;
@@ -28,4 +39,4 @@ export class DestinoViaje{
   voteDown() {
       this.votes--;
   }
-}
+} */

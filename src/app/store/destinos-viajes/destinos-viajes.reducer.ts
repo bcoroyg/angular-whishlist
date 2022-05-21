@@ -16,41 +16,32 @@ export const intializeDestinosViajesState: DestinosViajesState = {
 
 const reducer = createReducer(
   intializeDestinosViajesState,
-  on(destinosViajesActions.InitMyDataAction, (state, {destinos})=> {
-    //const destinos: string[] = (action as InitMyDataAction).destinos;
-    return {
-        ...state,
-        items: destinos.map((d) => new DestinoViaje(d, '',''))
-    };
-  }),
   on(destinosViajesActions.NuevoDestinoAction,(state, {destino})=> {
     return {
       ...state,
+      loading: true,
       items: [...state.items, destino]
-  };
+    };
   }),
   on(destinosViajesActions.ElegidoFavoritoAction, (state, {destino})=> {
-    state.items.forEach(x => x.setSelected(false));
-    const fav: DestinoViaje = destino;
-    fav.setSelected(true);
-    return {
-        ...state,
-        favorito: fav
-    };
-  }),
-  on(destinosViajesActions.VoteUpAction, (state, {destino})=> {
-    const d: DestinoViaje = destino;
-    d.voteUp();
-    return {
-        ...state
-    };
-  }),
-  on(destinosViajesActions.VoteUpAction, (state, {destino})=> {
-    const d: DestinoViaje = destino;
-    d.voteDown();
-    return {
-        ...state
+    console.log(state)
+    let items= [...state.items.map(item => {
+      if(item.id === destino.id){
+        item = {...item,selected:true}
+      }else{
+        item = {...item,selected:false}
       };
+      return item
+    })]
+    return {
+      ...state,
+      items,
+      loading: true,
+      favorito:{
+        ...destino,
+        selected:true
+      }
+     };
   }),
 );
 

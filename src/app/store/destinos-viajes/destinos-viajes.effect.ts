@@ -6,12 +6,11 @@ import * as destinosViajesActions from './destinos-viajes.action'
 
 @Injectable()
 export class DestinosViajesEffects {
-    nuevoAgregado$: Observable<Action> = createEffect( ()=> {
-      return this.actions$.pipe(
-        ofType(destinosViajesActions.NuevoDestinoAction),
-        map(({destino}) => destinosViajesActions.ElegidoFavoritoAction({destino}))
+  constructor(private actions$: Actions) { }
+  nuevoAgregado$: Observable<Action> = createEffect( ()=> {
+    return this.actions$.pipe(
+      ofType(destinosViajesActions.NuevoDestinoAction),
+      map(({destino}) => destinosViajesActions.ElegidoFavoritoAction({destino}))
     );
-    })
-
-    constructor(private actions$: Actions) { }
+  })
 }

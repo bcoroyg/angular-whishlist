@@ -45,13 +45,12 @@ export class FormDestinoViajeComponent implements OnInit {
             switchMap(() => ajax('/assets/date.json'))
           )
           .subscribe(ajaxResponse => {
-            console.log(ajaxResponse.response);
             this.searchResults = ajaxResponse.response as any
           });
   }
 
-  guardar(titulo:string, subtitulo:string, urlImg:string):boolean{
-    const destino = new DestinoViaje(titulo,subtitulo,urlImg)
+  guardar(titulo:string, subtitulo:string, imgUrl:string):boolean{
+    const destino:DestinoViaje={titulo,subtitulo,imgUrl}
     this.onItemAdded.emit(destino);
     return false
   };

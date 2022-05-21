@@ -1,6 +1,9 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { DestinosApiClient } from '../../models/destinos-api-client.model';
 import { DestinoViaje } from '../../models/destino-viaje.model';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store';
+import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-lista-destinos',
@@ -10,14 +13,18 @@ import { DestinoViaje } from '../../models/destino-viaje.model';
 export class ListaDestinosComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   updates: string[];
-  constructor(public destinosApiClient:DestinosApiClient) {
+  constructor(
+      public destinosApiClient:DestinosApiClient,
+      private store: Store<AppState>
+  ) {
     this.onItemAdded=new EventEmitter();
     this.updates = [];
-    this.destinosApiClient.subscribeOnChange((destino: DestinoViaje)=> {
-      if(destino != null){
-        this.updates.push(`Se ha elegido a ${destino.titulo}`)
+    this.store.select(state => state.destinos.favorito)
+    .subscribe(destino => {
+      if (destino != null) {
+        this.updates.push("Se eligió: " + destino.titulo);
       }
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -25,26 +32,17 @@ export class ListaDestinosComponent implements OnInit {
   }
 
   agregar(destino: DestinoViaje){
-    this.destinosApiClient.add(destino);
+    const newDestino = {
+      id:uuid(),
+       ...destino,
+       selected:false
+    }
+    this.destinosApiClient.add(newDestino);
     this.onItemAdded.emit(destino);
-  }
-
-  guardar(titulo:string, subtitulo:string, urlImg:string):boolean{
-    const destino = new DestinoViaje(titulo,subtitulo,urlImg)
-    this.destinosApiClient.add(destino);
-    this.onItemAdded.emit(destino);
-    //console.log(this.destinos);
-    return false
   }
 
   elegido(destino: DestinoViaje){
     this.destinosApiClient.elegir(destino);
-
-    /*     this.destinosApiClient.getAll().forEach((destino)=> {
-      destino.setSelected(false);
-    });
-    dest.setSelected(true);
-  } */
   }
 
 }

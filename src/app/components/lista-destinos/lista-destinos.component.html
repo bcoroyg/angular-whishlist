@@ -19,7 +19,7 @@
       *ngFor="let destino of destinosApiClient.getAll(); let i = index"
       [destino]="destino"
       [position]="i"
-      (clicked)="elegido($event)"
+      (clicked)="elegido(destino)"
     >
   </app-destino-viaje>
   </div>

@@ -10,7 +10,7 @@ import { DestinosApiClient } from 'src/app/models/destinos-api-client.model';
 })
 export class DestinoDetalleComponent implements OnInit {
 
-  destino:DestinoViaje=new DestinoViaje('','','');
+  destino:DestinoViaje={};
 
   constructor(private route: ActivatedRoute, private destinosApiClient:DestinosApiClient) { }
 

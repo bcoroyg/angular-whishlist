@@ -13,6 +13,7 @@ import { DestinosApiClient } from './models/destinos-api-client.model';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { reducers, reducersInitialState } from './store';
+import { DestinosViajesEffects } from './store/destinos-viajes/destinos-viajes.effect';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { reducers, reducersInitialState } from './store';
     FormsModule,
     ReactiveFormsModule,
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
+    EffectsModule.forRoot([DestinosViajesEffects]),
   ],
   providers: [
     DestinosApiClient
