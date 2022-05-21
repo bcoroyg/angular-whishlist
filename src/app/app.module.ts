@@ -14,6 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { reducers, reducersInitialState } from './store';
 import { DestinosViajesEffects } from './store/destinos-viajes/destinos-viajes.effect';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { DestinosViajesEffects } from './store/destinos-viajes/destinos-viajes.e
     ReactiveFormsModule,
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
     EffectsModule.forRoot([DestinosViajesEffects]),
+    StoreDevtoolsModule.instrument()
   ],
   providers: [
     DestinosApiClient

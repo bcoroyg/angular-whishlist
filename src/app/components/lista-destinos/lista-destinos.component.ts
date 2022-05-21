@@ -35,7 +35,6 @@ export class ListaDestinosComponent implements OnInit {
     const newDestino = {
       id:uuid(),
        ...destino,
-       selected:false
     }
     this.destinosApiClient.add(newDestino);
     this.onItemAdded.emit(destino);
