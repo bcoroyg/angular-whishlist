@@ -14,13 +14,11 @@ import {v4 as uuid} from 'uuid';
 export class ListaDestinosComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   updates: string[];
-  destinos: DestinoViaje[];
   constructor(
       public destinosApiClient:DestinosApiClient,
       private store: Store<AppState>
   ) {
     this.onItemAdded=new EventEmitter();
-    this.destinos = [];
     this.updates = [];
     this.store.select(state => state.destinos.favorito)
       .subscribe(destino => {
@@ -28,15 +26,9 @@ export class ListaDestinosComponent implements OnInit {
           this.updates.push("Se eligió: " + destino.titulo);
         }
       });
-    this.store
-      .select(state => state.destinos)
-      .subscribe((data) => {;
-        this.destinos = data.items;
-    });
   }
 
   ngOnInit(): void {
-
   }
 
   agregar(destino: DestinoViaje){
@@ -52,14 +44,5 @@ export class ListaDestinosComponent implements OnInit {
   elegido(destino: DestinoViaje){
     this.destinosApiClient.elegir(destino);
   }
-
-  getAll(): DestinoViaje[] {
-    return this.destinos;
-  }
-  getById(id: string): DestinoViaje {
-    return this.destinos.filter((destino) => {
-      return destino.id == id;
-    })[0];
-  };
 
 }
