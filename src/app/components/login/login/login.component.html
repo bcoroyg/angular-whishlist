@@ -1,0 +1,17 @@
+<div class="row">
+  <div class="col-4 mx-auto">
+    <form *ngIf="!authService.getUser()">
+        <p class="text-center text-danger lead" style="height: 20px;">{{mensajeError}}</p>
+      <div class="form-group">
+        <label class="col-form-label" for="username">User:</label>
+        <input class="form-control" name="username" #username>
+      </div>
+      <div class="form-group">
+        <label class="col-form-label" for="password">Password:</label>
+        <input class="form-control" type="password" name="password" #password>
+      </div>
+      <a class="btn btn-outline-primary btn-block" (click)="login(username.value, password.value)">Entrar!</a>
+    </form>
+    <a class="btn btn-outline-danger" (click)="logout()" *ngIf="authService.getUser()">Salir!</a>
+  </div>
+</div>

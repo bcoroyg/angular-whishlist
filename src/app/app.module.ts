@@ -15,6 +15,10 @@ import { StoreModule as NgRxStoreModule } from '@ngrx/store';
 import { reducers, reducersInitialState } from './store';
 import { DestinosViajesEffects } from './store/destinos-viajes/destinos-viajes.effect';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { LoginComponent } from './components/login/login/login.component';
+import { ProtectedComponent } from './components/protected/protected/protected.component';
+import { UsuarioLogueadGuard } from './core/guards/usuario-logueado/usuario-loguead.guard';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -22,7 +26,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     DestinoViajeComponent,
     ListaDestinosComponent,
     DestinoDetalleComponent,
-    FormDestinoViajeComponent
+    FormDestinoViajeComponent,
+    LoginComponent,
+    ProtectedComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +40,9 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     StoreDevtoolsModule.instrument()
   ],
   providers: [
-    DestinosApiClient
+    DestinosApiClient,
+    AuthService,
+    UsuarioLogueadGuard,
   ],
   bootstrap: [AppComponent]
 })
