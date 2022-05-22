@@ -1,8 +1,9 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Inject, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidatorFn, Validators } from '@angular/forms';
 import { debounceTime, distinctUntilChanged, filter, fromEvent, map, switchMap } from 'rxjs';
 import { DestinoViaje } from 'src/app/models/destino-viaje.model';
 import { ajax } from 'rxjs/ajax';
+import { AppConfig, APP_CONFIG } from 'src/app/app.config';
 
 @Component({
   selector: 'app-form-destino-viaje',
@@ -12,16 +13,16 @@ import { ajax } from 'rxjs/ajax';
 export class FormDestinoViajeComponent implements OnInit {
   @Output() onItemAdded: EventEmitter<DestinoViaje>;
   fg:FormGroup;
-  searchResults:string[]=[];
+  searchResults:DestinoViaje[]=[];
 
   minLongSub:number=3;
 
-  constructor(fb:FormBuilder) {
+  constructor(fb: FormBuilder, @Inject(forwardRef(() => APP_CONFIG)) private config: AppConfig) {
     this.onItemAdded=new EventEmitter();
     this.fg = fb.group({
-      titulo:['', Validators.compose([Validators.required, this.tituloValidator])],
-      subtitulo:['', [Validators.required, this.subtituloValidatorParametrizable(this.minLongSub)]],
-      imagen:['', Validators.required]
+      title:['', Validators.compose([Validators.required, this.tituloValidator])],
+      subtitle:['', [Validators.required, this.subtituloValidatorParametrizable(this.minLongSub)]],
+      imgUrl:''
     });
 
 /*     this.fg.valueChanges.subscribe((form:any)=> {
@@ -35,22 +36,23 @@ export class FormDestinoViajeComponent implements OnInit {
 
   ngOnInit(): void {
         // const elemTitulo = <HTMLInputElement>document.getElementById('titulo');
-        const elemTitulo = document.getElementById('titulo') as HTMLInputElement;
+        const elemTitulo = document.getElementById('title') as HTMLInputElement;
         fromEvent<KeyboardEvent>(elemTitulo, 'input')
           .pipe(
             map((e: KeyboardEvent) => (e.target as HTMLInputElement).value),
             filter(text => text.length > 2),
             debounceTime(200),
             distinctUntilChanged(),
-            switchMap(() => ajax('/assets/date.json'))
+           //switchMap(() => ajax('/assets/date.json'))
+           switchMap((text: string) => ajax(this.config.apiEndpoint + '/destinations/search?q=' + text))
           )
           .subscribe(ajaxResponse => {
-            this.searchResults = ajaxResponse.response as any
+            this.searchResults = (ajaxResponse.response as any).destinations
           });
   }
 
-  guardar(titulo:string, subtitulo:string, imgUrl:string):boolean{
-    const destino:DestinoViaje={titulo,subtitulo,imgUrl}
+  guardar(title:string, subtitle:string, imgUrl:string):boolean{
+    const destino:DestinoViaje={title,subtitle,imgUrl}
     this.onItemAdded.emit(destino);
     return false
   };

@@ -13,10 +13,10 @@ export class DestinoViajeComponent implements OnInit {
 
   @Input() destino: DestinoViaje = {
     id:'',
-    titulo:'',
-    subtitulo:'',
+    title:'',
+    subtitle:'',
     imgUrl:'',
-    servicios: [],
+    services: [],
     selected: false,
     votes:0,
   };

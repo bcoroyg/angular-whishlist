@@ -23,6 +23,7 @@ import { VuelosMainComponent } from './components/vuelos/vuelos-main/vuelos-main
 import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuelos-mas-info.component';
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 import { ReservasModule } from './reservas/reservas.module';
+import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,9 @@ import { ReservasModule } from './reservas/reservas.module';
   providers: [
     AuthService,
     UsuarioLogueadGuard,
+    {
+      provide:APP_CONFIG, useValue: APP_CONFIG_VALUE
+    }
   ],
   bootstrap: [AppComponent]
 })

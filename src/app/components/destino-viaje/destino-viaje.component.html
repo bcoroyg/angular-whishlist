@@ -2,14 +2,14 @@
   <div class="card-img">
     <img src="https://placeimg.com/380/230/nature" alt="" />
     <span>
-      <h4>{{destino.titulo}} {{position}}</h4>
+      <h4>{{destino.title}} {{position}}</h4>
     </span>
   </div>
   <div class="card-desc">
-    <h3>{{destino.subtitulo}}</h3>
+    <h3>{{destino.title}}</h3>
     <p class="mb-0">Servicios</p>
     <ul>
-      <li *ngFor="let servicio of destino.servicios">
+      <li *ngFor="let servicio of destino.services">
         <span [ngSwitch]="servicio">
           <i class="text-danger" *ngSwitchCase="'desayuno'">{{servicio}}</i>
           <i *ngSwitchDefault>{{servicio}}</i>

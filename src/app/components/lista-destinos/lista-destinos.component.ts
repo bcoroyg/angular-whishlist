@@ -23,7 +23,7 @@ export class ListaDestinosComponent implements OnInit {
     this.store.select(state => state.destinos.favorito)
       .subscribe(destino => {
         if (destino != null) {
-          this.updates.push("Se eligió: " + destino.titulo);
+          this.updates.push("Se eligió: " + destino.title);
         }
       });
   }
