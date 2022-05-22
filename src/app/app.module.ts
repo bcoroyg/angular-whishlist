@@ -8,7 +8,6 @@ import { ListaDestinosComponent } from './components/lista-destinos/lista-destin
 import { DestinoDetalleComponent } from './components/destino-detalle/destino-detalle.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FormDestinoViajeComponent } from './components/form-destino-viaje/form-destino-viaje.component';
-import { DestinosApiClient } from './models/destinos-api-client.model';
 
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule as NgRxStoreModule } from '@ngrx/store';
@@ -50,7 +49,6 @@ import { ReservasModule } from './reservas/reservas.module';
     ReservasModule
   ],
   providers: [
-    DestinosApiClient,
     AuthService,
     UsuarioLogueadGuard,
   ],
