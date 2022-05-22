@@ -19,6 +19,10 @@ import { LoginComponent } from './components/login/login/login.component';
 import { ProtectedComponent } from './components/protected/protected/protected.component';
 import { UsuarioLogueadGuard } from './core/guards/usuario-logueado/usuario-loguead.guard';
 import { AuthService } from './services/auth.service';
+import { VuelosComponent } from './components/vuelos/vuelos/vuelos.component';
+import { VuelosMainComponent } from './components/vuelos/vuelos-main/vuelos-main.component';
+import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuelos-mas-info.component';
+import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +32,11 @@ import { AuthService } from './services/auth.service';
     DestinoDetalleComponent,
     FormDestinoViajeComponent,
     LoginComponent,
-    ProtectedComponent
+    ProtectedComponent,
+    VuelosComponent,
+    VuelosMainComponent,
+    VuelosMasInfoComponent,
+    VuelosDetalleComponent
   ],
   imports: [
     BrowserModule,
