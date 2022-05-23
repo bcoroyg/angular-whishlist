@@ -17,10 +17,10 @@
       </li>
     </ul>
     <div>
-      <a  href="#" (click)="voteUp()">
+      <a  href="#" (click)="voteUp()" appTrackearClick data-trackear-tags="destino_vote_up lista_destinos_item">
         <i class="material-icons md-18">thumb_up</i>
       </a>
-      <a class="mr-3" href="#" (click)="voteDown()">
+      <a class="mr-3" href="#" (click)="voteDown()" appTrackearClick data-trackear-tags="destino_vote_down lista_destinos_item">
         <i class="material-icons md-18">thumb_down</i>
       </a>
       <span class="font-weight-bold" *ngIf="destino.votes===undefined">0</span>
@@ -31,7 +31,7 @@
       </span>
     </div>
     <a class="lead text-center d-block" [routerLink]="['/destino', destino._id]">Ver Detalles</a>
-    <a href="#" class="mx-auto d-block text-center btn-card" (click)="ir()">¡Ir!</a>
+    <a href="#" class="mx-auto d-block text-center btn-card" (click)="ir()" appTrackearClick data-trackear-tags="destino_elegir_preferido lista_destinos_item">¡Ir!</a>
     <!-- <span [style.display]="destino.isSelected()?'':'none'">--PREFERIDO--</span> -->
 
   </div>

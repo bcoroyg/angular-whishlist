@@ -32,6 +32,7 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {from, mergeMap, Observable } from 'rxjs';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { EspiameDirective } from './directives/espiame.directive';
+import { TrackearClickDirective } from './directives/trackear-click.directive';
 
 export const init_app = (destinationService: DestinationService) => {
   return () => destinationService.intializeDestinosViajesState();
@@ -89,7 +90,8 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosMainComponent,
     VuelosMasInfoComponent,
     VuelosDetalleComponent,
-    EspiameDirective
+    EspiameDirective,
+    TrackearClickDirective
   ],
   imports: [
     BrowserModule,
