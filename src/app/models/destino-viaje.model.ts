@@ -1,5 +1,5 @@
 export interface DestinoViaje{
-  id?:string,
+  _id?:string,
   title?:string,
   subtitle?:string,
   imgUrl?:string
