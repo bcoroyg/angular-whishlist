@@ -5,6 +5,7 @@ import * as destinosViajesActions from '../store/destinos-viajes/destinos-viajes
 import { forwardRef, Inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
 import { AppConfig, APP_CONFIG } from '../app.config';
+import { db } from '../services/database-indexed-db.service';
 
 @Injectable()
 export class DestinosApiClient {
@@ -31,7 +32,11 @@ export class DestinosApiClient {
     );
     this.http.request(req).subscribe((data: HttpResponse<{}>|any) => {
       if (data.status === 201) {
-        return this.store.dispatch(destinosViajesActions.NuevoDestinoAction({destino:data.body}));
+        this.store.dispatch(destinosViajesActions.NuevoDestinoAction({destino:data.body}));
+        const myDb = db;
+        myDb.destinos?.add(data.body);
+        console.log('todos los destinos de la db!');
+        myDb.destinos?.toArray().then(destinos => console.log(destinos))
       }
     });
 

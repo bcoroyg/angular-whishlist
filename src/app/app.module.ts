@@ -26,6 +26,7 @@ import { ReservasModule } from './reservas/reservas.module';
 import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
 import { DestinationService} from './services/destination.service';
 import { HttpClientModule } from '@angular/common/http';
+import { DatabaseIndexedDBService } from './services/database-indexed-db.service';
 
 export const init_app = (destinationService: DestinationService) => {
   return () => destinationService.intializeDestinosViajesState();
@@ -63,7 +64,8 @@ export const init_app = (destinationService: DestinationService) => {
       provide:APP_CONFIG, useValue: APP_CONFIG_VALUE
     },
     DestinationService,
-    { provide: APP_INITIALIZER, useFactory: init_app, deps: [DestinationService], multi: true }
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [DestinationService], multi: true },
+    DatabaseIndexedDBService
   ],
   bootstrap: [AppComponent]
 })
