@@ -16,6 +16,13 @@ export const intializeDestinosViajesState: DestinosViajesState = {
 
 const reducer = createReducer(
   intializeDestinosViajesState,
+  on(destinosViajesActions.LoadDataAction, (state, {destinos})=> {
+    return {
+        ...state,
+        loading: true,
+        items: destinos
+    };
+  }),
   on(destinosViajesActions.NuevoDestinoAction,(state, {destino})=> {
     return {
       ...state,
@@ -25,7 +32,7 @@ const reducer = createReducer(
   }),
   on(destinosViajesActions.ElegidoFavoritoAction, (state, {destino})=> {
     let items= [...state.items.map(item => {
-      if(item.id === destino.id){
+      if(item._id === destino._id){
         item = {...item,selected:true}
       }else{
         item = {...item,selected:false}
@@ -48,7 +55,7 @@ const reducer = createReducer(
       if(itemCopy.votes===undefined){
         itemCopy.votes=0
       }
-      if(itemCopy.id === destino.id){
+      if(itemCopy._id === destino._id){
         itemCopy.votes+=1;
       };
       return itemCopy
@@ -64,7 +71,7 @@ const reducer = createReducer(
       if(itemCopy.votes===undefined){
         itemCopy.votes=0
       }
-      if(itemCopy.id === destino.id){
+      if(itemCopy._id === destino._id){
         if(item.votes===0){
           itemCopy.votes=0
         }else{
