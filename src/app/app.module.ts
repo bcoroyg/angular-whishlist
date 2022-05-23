@@ -31,6 +31,7 @@ import { DatabaseIndexedDBService, db } from './services/database-indexed-db.ser
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {from, mergeMap, Observable } from 'rxjs';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { EspiameDirective } from './directives/espiame.directive';
 
 export const init_app = (destinationService: DestinationService) => {
   return () => destinationService.intializeDestinosViajesState();
@@ -87,7 +88,8 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosComponent,
     VuelosMainComponent,
     VuelosMasInfoComponent,
-    VuelosDetalleComponent
+    VuelosDetalleComponent,
+    EspiameDirective
   ],
   imports: [
     BrowserModule,
