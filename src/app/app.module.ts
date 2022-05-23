@@ -25,12 +25,53 @@ import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelo
 import { ReservasModule } from './reservas/reservas.module';
 import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
 import { DestinationService} from './services/destination.service';
-import { HttpClientModule } from '@angular/common/http';
-import { DatabaseIndexedDBService } from './services/database-indexed-db.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { DatabaseIndexedDBService, db } from './services/database-indexed-db.service';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import {from, mergeMap, Observable } from 'rxjs';
 
 export const init_app = (destinationService: DestinationService) => {
   return () => destinationService.intializeDestinosViajesState();
 }
+
+export class Translation {
+  constructor(public id: number, public lang: string, public key: string, public value: string) {}
+}
+
+export class TranslationLoader implements TranslateLoader {
+  constructor(private http: HttpClient) { }
+
+  getTranslation(lang: string): Observable<any>{
+
+    const promise = db.translations?.where('lang')
+      .equals(lang)
+      .toArray()
+      .then(results => {
+        if (results.length === 0) {
+          return this.http
+            .get<Translation[]>(APP_CONFIG_VALUE.apiEndpoint + '/destinations/translation?lang=' + lang).subscribe(apiResults => {
+              console.log("Soy api Results: ",apiResults)
+              db.translations?.bulkAdd(apiResults as any);
+              return apiResults
+            });
+        }
+        console.log("Resultas", results)
+        return results;
+      }).then((traducciones) => {
+        console.log('traducciones cargadas:');
+        console.log(traducciones);
+        return traducciones;
+      }).then((traducciones:any) => {
+        return traducciones.map((t:any) => ({ [t.key]: t.value}));
+      });
+    return from(promise as any).pipe(mergeMap((elems) => from(elems as any)));
+  }
+}
+
+function HttpLoaderFactory(http: HttpClient) {
+  return new TranslationLoader(http);
+}
+
 
 @NgModule({
   declarations: [
@@ -55,7 +96,14 @@ export const init_app = (destinationService: DestinationService) => {
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
-    ReservasModule
+    ReservasModule,
+    TranslateModule.forRoot({
+      loader: {
+          provide: TranslateLoader,
+          useFactory: (HttpLoaderFactory),
+          deps: [HttpClient]
+      }
+  })
   ],
   providers: [
     AuthService,
