@@ -5,3 +5,21 @@
   <br>
   {{ destino.title }}
 </p>
+<hr>
+<mgl-map
+    [style]="'mapbox://styles/mapbox/streets-v11'"
+    [zoom]="[2]"
+    [center]="[-75.551012, 10.421185]"
+  >
+  <mgl-marker
+     [lngLat]="[-75.551012, 10.421185]"
+   >
+     <div
+       onclick="alert('Hola')"
+       class="marker"
+     >
+	   Hola mundo!
+     </div>
+   </mgl-marker>
+  </mgl-map>
+

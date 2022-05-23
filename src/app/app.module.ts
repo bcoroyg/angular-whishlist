@@ -29,6 +29,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { DatabaseIndexedDBService, db } from './services/database-indexed-db.service';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import {from, mergeMap, Observable } from 'rxjs';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 export const init_app = (destinationService: DestinationService) => {
   return () => destinationService.intializeDestinosViajesState();
@@ -99,11 +100,14 @@ function HttpLoaderFactory(http: HttpClient) {
     ReservasModule,
     TranslateModule.forRoot({
       loader: {
-          provide: TranslateLoader,
-          useFactory: (HttpLoaderFactory),
-          deps: [HttpClient]
+        provide: TranslateLoader,
+        useFactory: (HttpLoaderFactory),
+        deps: [HttpClient]
       }
-  })
+    }),
+    NgxMapboxGLModule.withConfig({
+      accessToken:"YOUR_TOKEN"
+    })
   ],
   providers: [
     AuthService,

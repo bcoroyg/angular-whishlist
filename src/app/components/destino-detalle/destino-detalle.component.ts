@@ -13,7 +13,6 @@ import { DestinosApiClient } from 'src/app/models/destinos-api-client.model';
 export class DestinoDetalleComponent implements OnInit {
 
   destino:DestinoViaje={};
-
   constructor(private route: ActivatedRoute, private destinosApiClient:DestinosApiClient) { }
 
   ngOnInit(): void {
