@@ -12,7 +12,7 @@ import * as destinosViajesActions from '../../store/destinos-viajes/destinos-via
 export class DestinoViajeComponent implements OnInit {
 
   @Input() destino: DestinoViaje = {
-    id:'',
+    _id:'',
     title:'',
     subtitle:'',
     imgUrl:'',

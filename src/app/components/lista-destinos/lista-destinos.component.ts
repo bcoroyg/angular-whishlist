@@ -3,7 +3,6 @@ import { DestinosApiClient } from '../../models/destinos-api-client.model';
 import { DestinoViaje } from '../../models/destino-viaje.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store';
-import {v4 as uuid} from 'uuid';
 
 @Component({
   selector: 'app-lista-destinos',
@@ -32,12 +31,7 @@ export class ListaDestinosComponent implements OnInit {
   }
 
   agregar(destino: DestinoViaje){
-    const newDestino = {
-      id:uuid(),
-       ...destino,
-       selected:false,
-    }
-    this.destinosApiClient.add(newDestino);
+    this.destinosApiClient.add(destino);
     this.onItemAdded.emit(destino);
   }
 

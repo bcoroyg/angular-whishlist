@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +24,12 @@ import { VuelosMasInfoComponent } from './components/vuelos/vuelos-mas-info/vuel
 import { VuelosDetalleComponent } from './components/vuelos/vuelos-detalle/vuelos-detalle.component';
 import { ReservasModule } from './reservas/reservas.module';
 import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
+import { DestinationService} from './services/destination.service';
+import { HttpClientModule } from '@angular/common/http';
+
+export const init_app = (destinationService: DestinationService) => {
+  return () => destinationService.intializeDestinosViajesState();
+}
 
 @NgModule({
   declarations: [
@@ -44,6 +50,7 @@ import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     NgRxStoreModule.forRoot(reducers, { initialState: reducersInitialState }),
     EffectsModule.forRoot([DestinosViajesEffects]),
     StoreDevtoolsModule.instrument(),
@@ -54,7 +61,9 @@ import { APP_CONFIG, APP_CONFIG_VALUE } from './app.config';
     UsuarioLogueadGuard,
     {
       provide:APP_CONFIG, useValue: APP_CONFIG_VALUE
-    }
+    },
+    DestinationService,
+    { provide: APP_INITIALIZER, useFactory: init_app, deps: [DestinationService], multi: true }
   ],
   bootstrap: [AppComponent]
 })
